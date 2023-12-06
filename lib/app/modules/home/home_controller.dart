@@ -13,7 +13,6 @@ class HomeController extends GetxController {
   @override
   void onReady() async {
     await getLoans();
-    print(loans);
     super.onReady();
   }
 

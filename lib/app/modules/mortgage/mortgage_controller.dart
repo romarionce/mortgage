@@ -7,11 +7,10 @@ import 'package:mortgage/app/models/loan.dart';
 import 'package:mortgage/app/models/pay.dart';
 import 'package:mortgage/app/modules/home/home_controller.dart';
 import 'package:mortgage/app/modules/main_page/main_page_controller.dart';
-import 'package:mortgage/app/routes/app_pages.dart';
 import 'package:mortgage/app/services/storage.dart';
 
 class MortgageController extends GetxController {
-  final nameC = TextEditingController(text: '');
+  final nameC = TextEditingController(text: 'My mortgage');
   String get name => nameC.text;
 
   final _valueProp = 5000.0.obs;
@@ -88,7 +87,6 @@ class MortgageController extends GetxController {
     );
     Loan loan = Loan(loanId, name, pays, valueProp, monthPay, rate,
         years.ceil(), now, typesLoan[activeLoan].icon);
-    print(loan);
     await StorageService.to.writeLoan(loan);
     var mainPage = Get.find<MainPageController>();
     mainPage.setActive(0);
