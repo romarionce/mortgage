@@ -11,6 +11,9 @@ class ThemeApp {
     )).copyWith(
       appBarTheme: const AppBarTheme(
         backgroundColor: ColorsApp.background,
+        foregroundColor: Colors.red,
+        shadowColor: Colors.black54,
+        surfaceTintColor: ColorsApp.background,
         elevation: 0,
         titleTextStyle: TextStyle(
           fontSize: 32,
@@ -36,6 +39,19 @@ class ThemeApp {
       ),
       dividerTheme: const DividerThemeData(
           space: Constants.defaultPad, color: Colors.transparent),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      )),
     );
   }
 }

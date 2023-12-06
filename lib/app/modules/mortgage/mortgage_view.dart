@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -145,13 +146,48 @@ class MortgageView extends GetView<MortgageController> {
                         textEditingController: controller.rateC,
                         value: controller.rate,
                         onChanged: (v) => controller.rate = v,
-                        min: 0,
+                        min: 2,
                         max: 30,
                         divisions: 30 * 10,
                       )),
-                  const SizedBox(
-                    height: Constants.defaultPad * 2,
-                  ),
+                  // const SizedBox(
+                  //   height: Constants.defaultPad * 2,
+                  // ),
+                  Obx(() => SizedBox(
+                        height: 300,
+                        width: 100,
+                        child: PieChart(
+                          PieChartData(
+                            centerSpaceRadius: 0,
+                            sections: [
+                              PieChartSectionData(
+                                color: ColorsApp.main,
+                                value: controller.valueProp,
+                                radius: 100,
+                                title: "Debt",
+                                titleStyle: const TextStyle(
+                                  color: ColorsApp.background,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titlePositionPercentageOffset: .55,
+                              ),
+                              PieChartSectionData(
+                                color: ColorsApp.greyText,
+                                value: controller.overpay,
+                                radius: 100,
+                                title: "Overpay",
+                                titleStyle: const TextStyle(
+                                  color: ColorsApp.background,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                titlePositionPercentageOffset: .55,
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
                   Text('Overpayment', style: textScheme.titleLarge),
                   const SizedBox(height: Constants.defaultPad),
                   Obx(
@@ -177,6 +213,9 @@ class MortgageView extends GetView<MortgageController> {
                       ),
                     ),
                   ),
+                  const SizedBox(height: Constants.defaultPad * 2),
+                  FilledButton(
+                      onPressed: () {}, child: const Text("Add to home")),
                 ],
               ),
             ),
