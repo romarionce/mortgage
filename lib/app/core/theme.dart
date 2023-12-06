@@ -20,6 +20,7 @@ class ThemeApp {
           color: ColorsApp.mainText,
           fontWeight: FontWeight.w700,
         ),
+        centerTitle: false,
       ),
       sliderTheme: SliderThemeData(
         trackHeight: .1,
@@ -38,7 +39,10 @@ class ThemeApp {
         ),
       ),
       dividerTheme: const DividerThemeData(
-          space: Constants.defaultPad, color: Colors.transparent),
+        space: Constants.defaultPad / 2,
+        thickness: .3,
+        color: ColorsApp.greyText,
+      ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(
@@ -52,6 +56,11 @@ class ThemeApp {
           borderRadius: BorderRadius.circular(8),
         ),
       )),
+      listTileTheme: ListTileThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
     );
   }
 }

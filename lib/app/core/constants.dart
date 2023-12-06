@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 abstract class Constants {
   static const double defaultPad = 16;
@@ -9,4 +8,6 @@ abstract class Constants {
     decimalDigits: 0,
     symbol: '\$',
   );
+
+  static var dateFormatter = DateFormat('MMM yyyy');
 }

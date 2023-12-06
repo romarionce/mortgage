@@ -1,23 +1,47 @@
+import 'package:collection/collection.dart';
 import 'package:get/get.dart';
+import 'package:mortgage/app/models/loan.dart';
+import 'package:mortgage/app/models/pay.dart';
+import 'package:mortgage/app/services/storage.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  var storage = StorageService.to;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  var showPayed = false.obs;
+  RxList<Loan> loans = RxList.empty();
 
   @override
-  void onReady() {
+  void onReady() async {
+    await getLoans();
+    print(loans);
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  Future<void> getLoans() async {
+    loans.value = await storage.getLoans();
   }
 
-  void increment() => count.value++;
+  Map<DateTime, List<Pay>> get pays {
+    List<Pay> data = [];
+    loans
+        .map((element) => data.addAll(element.pays
+            .where((element) => showPayed.value ? true : !element.payed)))
+        .toList();
+    var s = _groupPays(data);
+    return s;
+  }
+
+  Map<DateTime, List<Pay>> _groupPays(List<Pay> pays) {
+    final groups = groupBy(pays, (Pay e) {
+      return e.time;
+    });
+    return groups;
+  }
+
+  Loan getLoanById(String id) {
+    return loans.firstWhere((element) => element.id == id);
+  }
+
+  double get getPercent => loans.fold(
+      0, (previousValue, element) => previousValue + element.payedPercent);
 }

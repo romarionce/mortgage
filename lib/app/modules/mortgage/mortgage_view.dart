@@ -215,7 +215,9 @@ class MortgageView extends GetView<MortgageController> {
                   ),
                   const SizedBox(height: Constants.defaultPad * 2),
                   FilledButton(
-                      onPressed: () {}, child: const Text("Add to home")),
+                    onPressed: () => controller.createLoan(),
+                    child: const Text("Add loan"),
+                  ),
                 ],
               ),
             ),

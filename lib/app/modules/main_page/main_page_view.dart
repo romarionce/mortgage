@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:mortgage/app/core/colors.dart';
 import 'package:mortgage/app/modules/main_page/main_page_controller.dart';
 import 'package:mortgage/app/modules/main_page/widgets/draw_navbar_icon.dart';
 

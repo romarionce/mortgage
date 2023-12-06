@@ -3,9 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mortgage/app/core/constants.dart';
+import 'package:mortgage/app/models/loan.dart';
+import 'package:mortgage/app/models/pay.dart';
+import 'package:mortgage/app/modules/home/home_controller.dart';
+import 'package:mortgage/app/modules/main_page/main_page_controller.dart';
+import 'package:mortgage/app/routes/app_pages.dart';
+import 'package:mortgage/app/services/storage.dart';
 
 class MortgageController extends GetxController {
   final nameC = TextEditingController(text: '');
+  String get name => nameC.text;
 
   final _valueProp = 5000.0.obs;
   final propC = TextEditingController(text: '');
@@ -68,6 +75,26 @@ class MortgageController extends GetxController {
     rate = 10;
     years = 5;
     super.onReady();
+  }
+
+  void createLoan() async {
+    if (name.isEmpty) return;
+    var now = DateTime.now();
+    var loanId = now.microsecondsSinceEpoch.toStringAsFixed(8) + name;
+    List<Pay> pays = List.generate(
+      (years * 12).ceil(),
+      (index) => Pay(index, loanId, monthPay, false,
+          time: DateTime(now.year, now.month + index)),
+    );
+    Loan loan = Loan(loanId, name, pays, valueProp, monthPay, rate,
+        years.ceil(), now, typesLoan[activeLoan].icon);
+    print(loan);
+    await StorageService.to.writeLoan(loan);
+    var mainPage = Get.find<MainPageController>();
+    mainPage.setActive(0);
+    var homeCtrl = Get.find<HomeController>();
+    homeCtrl.getLoans();
+    nameC.text = "";
   }
 }
 

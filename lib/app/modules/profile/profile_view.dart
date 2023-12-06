@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mortgage/app/core/colors.dart';
 import 'package:mortgage/app/modules/profile/widgets/draw_tile.dart';
+import 'package:mortgage/app/services/storage.dart';
 
 import 'profile_controller.dart';
 
@@ -32,7 +33,18 @@ class ProfileView extends GetView<ProfileController> {
               fun: () => log('1'), asset: 'share', text: 'Share with friends'),
           DrawProfileTile(
               fun: () {}, asset: 'star', text: 'Rate in the App Store'),
-          DrawProfileTile(fun: () {}, asset: 'logout', text: 'Logout'),
+          DrawProfileTile(
+              fun: () async {
+                await StorageService.to.clear();
+                Get.showSnackbar(const GetSnackBar(
+                  title: 'Cleared.',
+                  message: 'Now, storage is empty',
+                  backgroundColor: ColorsApp.greyText,
+                  duration: Duration(seconds: 1),
+                ));
+              },
+              asset: 'logout',
+              text: 'Clear data'),
         ],
       ),
     );

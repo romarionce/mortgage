@@ -5,7 +5,7 @@ import 'package:mortgage/app/modules/profile/profile_view.dart';
 import 'package:mortgage/app/routes/app_pages.dart';
 
 class MainPageController extends GetxController {
-  var tabIndex = 1.obs;
+  var tabIndex = 0.obs;
   int get activeTab => tabIndex.value;
 
   void setActive(index) => tabIndex.value = index;
