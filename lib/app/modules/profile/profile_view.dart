@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:mortgage/app/core/colors.dart';
+import 'package:mortgage/app/modules/home/home_controller.dart';
 import 'package:mortgage/app/modules/profile/widgets/draw_tile.dart';
 import 'package:mortgage/app/services/storage.dart';
 
@@ -36,6 +37,7 @@ class ProfileView extends GetView<ProfileController> {
           DrawProfileTile(
               fun: () async {
                 await StorageService.to.clear();
+                Get.find<HomeController>().getLoans();
                 Get.showSnackbar(const GetSnackBar(
                   title: 'Cleared.',
                   message: 'Now, storage is empty',
